@@ -1,3 +1,5 @@
+import React from "react";
+
 export function Greeting(props) {
   console.log(props)
   const { title } = props
