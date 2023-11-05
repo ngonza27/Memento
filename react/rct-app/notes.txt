@@ -1,0 +1,1 @@
+Props = parameters that a component receives
