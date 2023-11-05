@@ -4,7 +4,11 @@ import PropTypes from "prop-types";
 export function Button(props) {
   let { text, name } = props;
   return (
-    <button>
+    <button
+      onClick={function () {
+        console.log("Hola mundo");
+      }}
+    >
       {text} - {name}
     </button>
   );
