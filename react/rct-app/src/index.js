@@ -1,23 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import { Posts } from "./Posts";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-const users = [
-  { id: 1, name: "Alberto", image: "https://robohash.org/user1" },
-  { id: 2, name: "Carlos", image: "https://robohash.org/user2" },
-];
+function Counter() {
+  const [mensaje, setMensaje] = useState("");
+  const [counter, setCounter] = useState(0);
 
+  useEffect(() => {
+    console.log("render");
+  }, [counter]);
+
+  return (
+    <div>
+      <input
+        onChange={(e) => {
+          console.log(setMensaje(e.target.value));
+        }}
+      />
+      <button
+        onClick={() => {
+          alert("el mensaje es: " + mensaje);
+        }}
+      >
+        Save
+      </button>
+      <hr />
+      <h1> Counter : {counter}</h1>
+      <button
+        onClick={() => {
+          setCounter(counter + 1);
+        }}
+      >
+        Incrementar
+      </button>
+    </div>
+  );
+}
 root.render(
   <>
-    <Posts />
-    {users.map((obj, i) => {
-      return (
-        <div key={i}>
-          <h1>{obj.name}</h1>
-          <img src={obj.image} />
-        </div>
-      );
-    })}
+    <Counter />
   </>
 );
