@@ -1,18 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-// import { Greeting, UserCard } from "./Greeting";
-// import Product, { Navbar } from "./Product";
-// import { Button } from "./Button";
-// import { TaskCard } from "./Task";
 import { Posts } from "./Posts";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-// const handleChange = (e) => {
-//   console.log(e.target.value);
-// };
+const users = [
+  { id: 1, name: "Alberto", image: "https://robohash.org/user1" },
+  { id: 2, name: "Carlos", image: "https://robohash.org/user2" },
+];
 
 root.render(
   <>
     <Posts />
+    {users.map((obj, i) => {
+      return (
+        <div key={i}>
+          <h1>{obj.name}</h1>
+          <img src={obj.image} />
+        </div>
+      );
+    })}
   </>
 );
