@@ -72,3 +72,39 @@ class Solution:
         """
         for i in range(len(s)//2):
             s[i],s[len(s)-i-1] = s[len(s)-i-1],s[i]
+
+
+"""
+[5] 125. Valid Palindrome (https://leetcode.com/problems/valid-palindrome/)
+
+A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
+
+Given a string s, return true if it is a palindrome, or false otherwise.
+"""
+
+import re
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        s = s.lower()
+        s = re.sub('\W|_+','', s)
+        return s == s[::-1]
+    
+
+"""
+[6] 14. Longest Common Prefix (https://leetcode.com/problems/longest-common-prefix/)
+
+Write a function to find the longest common prefix string amongst an array of strings.
+
+If there is no common prefix, return an empty string "".
+"""
+
+class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        shrtr,lngr = min(strs), max(strs)
+        res = ""
+        for s,l in zip(shrtr,lngr):
+            if s == l:
+                res+=s
+            else:
+                break
+        return res
