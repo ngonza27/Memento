@@ -92,3 +92,38 @@ class Solution:
             if N==n:return True
             N=N*3
         return False
+    
+
+"""
+[8] 191. Number of 1 Bits (https://leetcode.com/problems/number-of-1-bits/)
+"""
+
+class Solution:
+    def hammingWeight(self, n: int) -> int:
+        return bin(n).count('1')
+    
+
+"""
+[9] 303. Range Sum Query - Immutable (https://leetcode.com/problems/range-sum-query-immutable/)
+"""
+
+class NumArray:
+
+    def __init__(self, nums: List[int]):
+        self.nums = nums
+
+    def sumRange(self, left: int, right: int) -> int:
+        return sum(self.nums[left:right+1])
+
+
+"""
+[10] 509. Fibonacci Number (https://leetcode.com/problems/fibonacci-number/)
+"""
+
+class Solution:
+    def fib(self, n: int) -> int:
+        if n <= 1:
+            return n
+        return self.fib(n-1) + self.fib(n-2)
+    
+
