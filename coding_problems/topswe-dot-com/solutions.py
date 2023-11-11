@@ -139,3 +139,16 @@ class Solution:
             one = one+two
             two = temp
         return one
+
+"""
+[12] 746. Min Cost Climbing Stairs (https://leetcode.com/problems/min-cost-climbing-stairs/description/)
+"""
+
+class Solution:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        one, two, n = cost[0], cost[1], len(cost)
+        for i in range(2,n):
+            temp = cost[i] + min(one,two)
+            one = two
+            two = temp
+        return min(one,two)
