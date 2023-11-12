@@ -146,9 +146,25 @@ class Solution:
 
 class Solution:
     def minCostClimbingStairs(self, cost: List[int]) -> int:
-        one, two, n = cost[0], cost[1], len(cost)
-        for i in range(2,n):
-            temp = cost[i] + min(one,two)
-            one = two
-            two = temp
-        return min(one,two)
+        cost.append(0)
+        for i in range(len(cost)-3, -1, -1):
+           cost[i] += min(cost[i+1], cost[i+2])
+        return min(cost[0], cost[1])
+    
+
+
+"""
+[13] 121. Best Time to Buy and Sell Stock (https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/)
+"""
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        buy, sell, profit=0, 0, 0
+        for i in range(len(prices)):
+            if prices[i] < prices[buy]:
+                buy = i
+                sell = i
+            if i > buy:
+                sell = i
+                profit = max(profit,prices[sell]-prices[buy])
+        return profit
