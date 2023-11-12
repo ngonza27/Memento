@@ -168,3 +168,21 @@ class Solution:
                 sell = i
                 profit = max(profit,prices[sell]-prices[buy])
         return profit
+
+
+"""
+[14] 94. Binary Tree Inorder Traversal (https://leetcode.com/problems/binary-tree-inorder-traversal/submissions/1097355417/)
+"""
+
+class Solution:
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        ans = []
+        self.inorder(root, ans)
+        return ans
+
+    def inorder(self, node, ans):
+        if node is None:
+            return None
+        self.inorder(node.left, ans)
+        ans.append(node.val)
+        self.inorder(node.right, ans)
