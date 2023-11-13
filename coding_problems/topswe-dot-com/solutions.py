@@ -204,3 +204,16 @@ class Solution:
         self.invertTree(root.right)
 
         return root
+    
+"""
+[16] 101. Symmetric Tree (https://leetcode.com/problems/symmetric-tree/description/)
+"""
+
+class Solution:
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        return self.hlp(root, root)
+
+    def hlp(self, l, r):
+        if not l and not r: return True
+        if ((not l or not r) or l.val != r.val): return False
+        return self.hlp(l.left, r.right) and self.hlp(l.right, r.left)
