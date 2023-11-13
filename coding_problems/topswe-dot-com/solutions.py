@@ -186,3 +186,21 @@ class Solution:
         self.inorder(node.left, ans)
         ans.append(node.val)
         self.inorder(node.right, ans)
+
+"""
+[15] 226. Invert Binary Tree (https://leetcode.com/problems/invert-binary-tree/description/)
+"""
+
+class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if root == None:
+            return None
+
+        temp = root.left
+        root.left = root.right
+        root.right = temp
+
+        self.invertTree(root.left)
+        self.invertTree(root.right)
+
+        return root
