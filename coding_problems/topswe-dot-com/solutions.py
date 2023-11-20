@@ -217,3 +217,60 @@ class Solution:
         if not l and not r: return True
         if ((not l or not r) or l.val != r.val): return False
         return self.hlp(l.left, r.right) and self.hlp(l.right, r.left)
+    
+"""
+[17] 104. Maximum Depth of Binary Tree (https://leetcode.com/problems/maximum-depth-of-binary-tree/)
+"""
+
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))    
+
+"""
+[18] 100. Same Tree (https://leetcode.com/problems/same-tree/)
+"""
+
+class Solution:
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        if (not p and q) or (p and not q): return False
+        if not p and not q: return True
+        return p.val == q.val and self.isSameTree(p.left, q.left) and self.isSameTree(q.right, p.right)
+    
+"""
+[19] 112. Path Sum (https://leetcode.com/problems/path-sum/)
+"""
+
+class Solution:
+    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+        itSums = False
+        if not root: return False
+        return self.sol(root, targetSum, 0, itSums)
+
+    
+    def sol(self, root, targetSum, val, itSums):
+        if not root:
+            return itSums
+        root.val += val
+        if root.val == targetSum and (not root.left) and (not root.right): 
+            itSums = True
+        itSums = self.sol(root.left, targetSum, root.val, itSums)
+        itSums = self.sol(root.right, targetSum, root.val, itSums)
+        return itSums
+    
+"""
+[20] 111. Minimum Depth of Binary Tree (https://leetcode.com/problems/minimum-depth-of-binary-tree/)
+"""
+
+class Solution:
+    def minDepth(self, root: Optional[TreeNode]) -> int:
+        if not root: return 0
+        if (not root.left) and (not root.right): 
+            return 1
+        if not root.left: 
+            return 1 + self.minDepth(root.right)
+        if not root.right: 
+            return 1 + self.minDepth(root.left)
+        return 1 + min(self.minDepth(root.left), self.minDepth(root.right))
+        
