@@ -274,3 +274,18 @@ class Solution:
             return 1 + self.minDepth(root.left)
         return 1 + min(self.minDepth(root.left), self.minDepth(root.right))
         
+"""
+[21] 98. Validate Binary Search Tree (https://leetcode.com/problems/validate-binary-search-tree/)
+"""
+
+class Solution:
+  def isValidBST(self, root: Optional[TreeNode]) -> bool:
+    ans = []
+    self.inorder(root, ans)
+    return ans == sorted(ans) and len(ans) == len(set(ans))
+
+  def inorder(self, root, ans):
+    if not root: return None
+    self.inorder(root.left, ans)
+    ans.append(root.val)
+    self.inorder(root.right, ans)
