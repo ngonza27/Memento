@@ -289,3 +289,17 @@ class Solution:
     self.inorder(root.left, ans)
     ans.append(root.val)
     self.inorder(root.right, ans)
+
+"""
+[22] 206. Reverse Linked List (https://leetcode.com/problems/reverse-linked-list/)
+"""
+
+class Solution:
+  def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+    prev = None
+    while head:
+      ref = head.next
+      head.next = prev
+      prev = head
+      head = ref
+    return prev
