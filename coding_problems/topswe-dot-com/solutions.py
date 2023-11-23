@@ -303,3 +303,15 @@ class Solution:
       prev = head
       head = ref
     return prev
+
+"""
+[23] 876. Middle of the Linked List (https://leetcode.com/problems/middle-of-the-linked-list/)
+"""
+
+class Solution:
+  def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+    p1, p2 = head, head
+    while p2 and p2.next:
+      p1 = p1.next
+      p2 = p2.next.next
+    return p1
