@@ -315,3 +315,25 @@ class Solution:
       p1 = p1.next
       p2 = p2.next.next
     return p1
+
+"""
+[24] 102. Binary Tree Level Order Traversal (https://leetcode.com/problems/binary-tree-level-order-traversal/)
+"""
+
+class Solution:
+  def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+    if not root: return []
+    lst = []
+    stack = [root]
+    while stack:
+      temp = []
+      lenn = len(stack)
+      for _ in range(lenn):
+        node = stack.pop(0)
+        if node:
+          temp.append(node.val)
+          stack.append(node.left)
+          stack.append(node.right)
+      if temp:
+        lst.append(temp)
+    return lst
