@@ -337,3 +337,29 @@ class Solution:
       if temp:
         lst.append(temp)
     return lst
+  
+"""
+[25] 1971. Find if Path Exists in Graph (https://leetcode.com/problems/find-if-path-exists-in-graph/)
+"""
+
+class Solution:
+  def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
+    if (not edges) or source == destination: 
+      return True  
+        
+    graph = defaultdict(list)  
+    for pairs in edges: 
+      graph[pairs[0]].append(pairs[1])
+      graph[pairs[1]].append(pairs[0])
+
+    queue = [source] 
+    visited = {} 
+    while queue: 
+      last = queue.pop(0) 
+      visited[last] = True 
+      if last == destination: 
+        return True 
+      for node in graph[last]: 
+        if node not in visited: 
+          queue.append(node)
+    return False 
