@@ -362,4 +362,42 @@ class Solution:
       for node in graph[last]: 
         if node not in visited: 
           queue.append(node)
-    return False 
+    return False
+
+"""
+[26] 200. Number of Islands (https://leetcode.com/problems/number-of-islands/)
+"""
+
+class Solution:
+  def numIslands(self, grid: List[List[str]]) -> int:
+    if not grid: 
+      return 0
+    rows, cols = len(grid), len(grid[0])
+    visit = set()
+    islands = 0
+
+    def bfs(r, c):
+      q = collections.deque()
+      visit.add((r,c))
+      q.append((r,c))
+      while q:
+        row, col = q.popleft()
+        for row_offset, col_offset in [[1, 0], [-1, 0], [0, 1], [0, -1]]:
+          if (
+              row + row_offset >= 0 and
+              row + row_offset < rows and
+              col + col_offset >= 0 and
+              col + col_offset < cols and
+              grid[row + row_offset][col + col_offset] == "1" and
+              (row + row_offset, col + col_offset) not in visit
+          ):
+            q.append((row + row_offset, col + col_offset))
+            visit.add((row + row_offset, col + col_offset))
+
+
+    for r in range(rows):
+      for c in range(cols):
+        if grid[r][c] == "1" and (r, c) not in visit:
+          bfs(r,c)
+          islands += 1
+    return islands
