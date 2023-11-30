@@ -401,3 +401,44 @@ class Solution:
           bfs(r,c)
           islands += 1
     return islands
+
+"""
+[27] 695. Max Area of Island (https://leetcode.com/problems/max-area-of-island/)
+"""
+
+class Solution:
+  def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+    if not grid: 
+      return 0
+    rows, cols = len(grid), len(grid[0])
+    visit = set()
+    max_area = 0
+
+    def bfs(r, c):
+      q = collections.deque()
+      sizes = 1
+      visit.add((r,c))
+      q.append((r,c))
+      while q:
+        row, col = q.popleft()
+        for row_offset, col_offset in [[1, 0], [-1, 0], [0, 1], [0, -1]]:
+          if (
+              row + row_offset >= 0 and
+              row + row_offset < rows and
+              col + col_offset >= 0 and
+              col + col_offset < cols and
+              grid[row + row_offset][col + col_offset] == 1 and
+              (row + row_offset, col + col_offset) not in visit
+          ):
+            q.append((row + row_offset, col + col_offset))
+            visit.add((row + row_offset, col + col_offset))
+            sizes += 1
+      return sizes
+
+    for r in range(rows):
+      for c in range(cols):
+        if grid[r][c] == 1 and (r, c) not in visit:
+          l = bfs(r,c)
+          if l > max_area:
+            max_area = l 
+    return max_area
