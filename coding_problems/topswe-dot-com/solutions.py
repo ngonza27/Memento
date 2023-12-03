@@ -442,3 +442,40 @@ class Solution:
           if l > max_area:
             max_area = l 
     return max_area
+  
+"""
+[28] 1905. Count Sub Islands (https://leetcode.com/problems/count-sub-islands/)
+"""
+
+class Solution:
+  def countSubIslands(self, grid1: List[List[int]], grid2: List[List[int]]) -> int:
+    if not grid1 and not grid2: 
+      return 0
+    rows, cols = len(grid1), len(grid1[0])
+    islands = 0
+
+    def bfs(r, c):
+      f = 1
+      q = collections.deque()
+      q.append((r,c))
+      while q:
+        row, col = q.popleft()
+        if grid2[row][col] == 0: 
+          continue
+        grid2[row][col] = 0
+        if grid1[row][col] == 0:
+          f = 0
+        for row_offset, col_offset in [[1, 0], [-1, 0], [0, 1], [0, -1]]:
+          if (
+              row + row_offset >= 0 and row + row_offset < rows and
+              col + col_offset >= 0 and col + col_offset < cols and
+              grid2[row + row_offset][col + col_offset] == 1):
+            q.append((row + row_offset, col + col_offset))
+      return f
+
+    for r in range(rows):
+      for c in range(cols):
+        if grid2[r][c]:
+          f = bfs(r,c)
+          if f: islands += 1
+    return islands
