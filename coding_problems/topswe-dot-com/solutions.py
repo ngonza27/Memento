@@ -479,3 +479,22 @@ class Solution:
           f = bfs(r,c)
           if f: islands += 1
     return islands
+
+"""
+[29] 20. Valid Parentheses (https://leetcode.com/problems/valid-parentheses/)
+"""
+
+class Solution:
+  def isValid(self, s: str) -> bool:
+    d = {"}": "{", "]": "[", ")": "("}
+    if len(s) < 2 or len(s)%2 != 0 or s[0] in d.keys():
+      return False
+    q = collections.deque()
+    for p in s:
+      if p in d.values():
+        q.append(p)
+      elif len(q) and d.get(p) == q[-1]:
+        q.pop()
+      else:
+        return False
+    return len(q) == 0
