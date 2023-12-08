@@ -498,3 +498,22 @@ class Solution:
       else:
         return False
     return len(q) == 0
+
+"""
+[30] 238. Product of Array Except Self (https://leetcode.com/problems/product-of-array-except-self/)
+"""
+
+class Solution:
+  def productExceptSelf(self, nums: List[int]) -> List[int]:
+    pre, pos = 1, 1
+    n = len(nums)
+    res = [1]*n
+    for i in range(n):
+      res[i] = pre
+      pre *= nums[i]
+    for i in range(n-1, -1, -1):
+      res[i] *= pos
+      pos *= nums[i]
+    return res
+  
+
