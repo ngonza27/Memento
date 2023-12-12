@@ -516,4 +516,64 @@ class Solution:
       pos *= nums[i]
     return res
   
+"""
+[31] 704. Binary Search (https://leetcode.com/problems/binary-search/)
+"""
+class Solution:
+  def search(self, nums: List[int], target: int) -> int:
+    l = 0
+    r = len(nums)-1
+    while l <= r:
+      mid = (l+r)//2
+      if nums[mid] == target:
+        return mid
+      if target > nums[mid]:
+        l = mid+1
+      if target < nums[mid]:
+        r = mid-1
+    return -1
+    
+"""
+[32] 921. Minimum Add to Make Parentheses Valid (https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/)
+"""
+
+class Solution:
+  def minAddToMakeValid(self, s: str) -> int:
+    ans = 0
+    q = []
+    for i in s:
+      if i == "(":
+        q.append(i)
+      else:
+        if q:
+          q.pop(0)
+        else:
+          ans += 1
+    return len(q) + ans
+  
+"""
+[33] 5. Longest Palindromic Substring (https://leetcode.com/problems/longest-palindromic-substring/)
+"""
+
+class Solution:
+  def longestPalindrome(self, s: str) -> str:
+    res = ""
+    n = len(s)
+    resl = 0
+    for i in range(n):
+      l,r = i, i
+      while l >= 0 and r < n and s[l] == s[r]:
+        if (r-l+1) > resl:
+          res=s[l:r+1]
+          resl = r-l+1
+        l -= 1
+        r += 1
+      l,r = i, i+1
+      while l >= 0 and r < n and s[l] == s[r]:
+        if (r-l+1) > resl:
+          res=s[l:r+1]
+          resl = r-l+1
+        l -= 1
+        r += 1
+    return res
 
