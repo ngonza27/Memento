@@ -577,3 +577,36 @@ class Solution:
         r += 1
     return res
 
+"""
+[34] 167. Two Sum II - Input Array Is Sorted (https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
+"""
+
+class Solution:
+  def twoSum(self, numbers: List[int], target: int) -> List[int]:
+    n = len(numbers)-1
+    l, r = 0, n
+    for i in range(n):
+      zum = numbers[l]+numbers[r]
+      if zum == target:
+        return [l+1,r+1]
+      elif zum > target:
+        r -=1
+      else:
+        l += 1
+
+"""
+[35] 11. Container With Most Water (https://leetcode.com/problems/container-with-most-water/)
+"""
+
+class Solution:
+  def maxArea(self, height: List[int]) -> int:
+    l, r = 0, len(height)-1
+    ans = 0
+    while l < r:
+      area = min(height[l], height[r]) * (r - l)
+      ans = area if area > ans else ans
+      if height[l] < height[r]:
+        l += 1
+      else:
+        r -= 1
+    return ans
