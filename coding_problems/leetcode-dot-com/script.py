@@ -60,3 +60,24 @@ class Solution:
             else:
                 stack.append(c)
         return not bool(len(stack))
+
+
+#21. Merge Two Sorted Lists (https://leetcode.com/problems/merge-two-sorted-lists/)
+class Solution:
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        sortd_head = ListNode()
+        sortd = sortd_head
+        while list1 and list2:
+            if list1.val < list2.val:
+                sortd.next = list1
+                list1 = list1.next
+            else:
+                sortd.next = list2
+                list2 = list2.next
+            sortd = sortd.next
+        
+        if list1:
+            sortd.next = list1
+        elif list2:
+            sortd.next = list2
+        return sortd_head.next
