@@ -32,3 +32,31 @@ class Solution:
                 res += d[s[i]]
                 i+=1
         return res
+
+
+# 14. Longest Common Prefix (https://leetcode.com/problems/longest-common-prefix/description/)
+class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        strs = sorted(strs)
+        mns = strs[0]
+        mxs = strs[-1]
+        res = ""
+        for i in range(len(mns)):
+            if mns[i] != mxs[i]:
+                break
+            res = res + mns[i]
+        return res
+
+
+# 20. Valid Parentheses (https://leetcode.com/problems/valid-parentheses/description/)
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        close = {')': '(', '}': '{', ']': '['}
+        if len(s)%2 != 0: return False        
+        for c in s:
+            if c in close and len(stack) and stack[-1] == close[c]:
+                stack.pop()
+            else:
+                stack.append(c)
+        return not bool(len(stack))
