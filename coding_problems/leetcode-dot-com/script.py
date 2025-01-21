@@ -8,7 +8,7 @@ class Solution:
             d[n] = i
 
 
-# 9. Palindrome Number (https://leetcode.com/problems/palindrome-number/)
+# 9. Palindrome Number (https://leetcode.com/problems/palindrome-number/description/)
 class Solution:
     def isPalindrome(self, x: int) -> bool:
         return str(x)[::-1] == str(x)
@@ -62,7 +62,7 @@ class Solution:
         return not bool(len(stack))
 
 
-#21. Merge Two Sorted Lists (https://leetcode.com/problems/merge-two-sorted-lists/)
+#21. Merge Two Sorted Lists (https://leetcode.com/problems/merge-two-sorted-lists/description/)
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
         sortd_head = ListNode()
@@ -96,7 +96,7 @@ class Solution:
             return k
 
 
-#27. Remove Element (https://leetcode.com/problems/remove-element/)
+#27. Remove Element (https://leetcode.com/problems/remove-element/description/)
 class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
         k = 0
@@ -105,3 +105,16 @@ class Solution:
                 nums[k] = nums[i]
                 k+=1
         return k
+
+
+#28. Find the Index of the First Occurrence in a String (https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/description/)
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        index = -1
+        n_length = len(needle)
+        length = len(haystack)
+        for i in range(length):
+            if haystack[i:i+n_length] == needle and index < 0:
+                index = i
+                break
+        return index
