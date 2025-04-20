@@ -1,30 +1,47 @@
+import { cssBundleHref } from "@remix-run/css-bundle";
+import {
+  json,
+  type LinksFunction,
+  type LoaderFunctionArgs,
+} from "@remix-run/node";
 import {
   Links,
+  LiveReload,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react";
-import type { LinksFunction } from "@remix-run/node";
-import styles from "./tailwind.css?url";
-
-import "./tailwind.css";
+import styles from "./tailwind.css";
+import {
+  getSupabaseEnv,
+  getSupabaseWithSessionAndHeaders,
+} from "./lib/supabase.server";
+import { useSupabase } from "./lib/supabase";
+import { Toaster } from "./components/ui/toaster";
 
 export const links: LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
-  {
-    rel: "preconnect",
-    href: "https://fonts.gstatic.com",
-    crossOrigin: "anonymous",
-  },
-  {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-  },
   { rel: "stylesheet", href: styles },
+  ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 ];
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const { serverSession, headers } = await getSupabaseWithSessionAndHeaders({
+    request,
+  });
+  const domainUrl = process.env.DOMAIN_URL!;
+
+  const env = getSupabaseEnv();
+
+  return json({ serverSession, env, domainUrl }, { headers });
+};
+
+export default function App() {
+  const { env, serverSession, domainUrl } = useLoaderData<typeof loader>();
+
+  const { supabase } = useSupabase({ env, serverSession });
+
   return (
     <html lang="en">
       <head>
@@ -33,15 +50,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
-        {children}
+      <body className="overscroll-none">
+        <Toaster />
+        <Outlet context={{ supabase, domainUrl }} />
         <ScrollRestoration />
         <Scripts />
+        <LiveReload />
       </body>
     </html>
   );
-}
-
-export default function App() {
-  return <Outlet />;
 }

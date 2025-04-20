@@ -10,39 +10,39 @@ import {
 import { useState } from "react";
 import { AppLogo } from "~/components/app-logo";
 import { Button } from "~/components/ui/button";
-// import type { SupabaseOutletContext } from "~/lib/supabase";
-// import { getSupabaseWithSessionAndHeaders } from "~/lib/supabase.server";
-// import { getUserDataFromSession } from "~/lib/utils";
+import type { SupabaseOutletContext } from "~/lib/supabase";
+import { getSupabaseWithSessionAndHeaders } from "~/lib/supabase.server";
+import { getUserDataFromSession } from "~/lib/utils";
 
-// export let loader = async ({ request }: LoaderFunctionArgs) => {
-//   const { headers, serverSession } = await getSupabaseWithSessionAndHeaders({
-//     request,
-//   });
+export let loader = async ({ request }: LoaderFunctionArgs) => {
+  const { headers, serverSession } = await getSupabaseWithSessionAndHeaders({
+    request,
+  });
 
-//   if (!serverSession) {
-//     return redirect("/login", { headers });
-//   }
+  if (!serverSession) {
+    return redirect("/login", { headers });
+  }
 
-//   const { userId, userAvatarUrl, username } =
-//     getUserDataFromSession(serverSession);
+  const { userId, userAvatarUrl, username } =
+    getUserDataFromSession(serverSession);
 
-//   return json(
-//     { userDetails: { userId, userAvatarUrl, username } },
-//     { headers }
-//   );
-// };
+  return json(
+    { userDetails: { userId, userAvatarUrl, username } },
+    { headers }
+  );
+};
 
 export default function Home() {
-  // const {
-  //   userDetails: { username, userAvatarUrl },
-  // } = useLoaderData<typeof loader>();
+  const {
+    userDetails: { username, userAvatarUrl },
+  } = useLoaderData<typeof loader>();
 
   const [isNavOpen, setNavOpen] = useState(false);
-  // const { supabase } = useOutletContext<SupabaseOutletContext>();
+  const { supabase } = useOutletContext<SupabaseOutletContext>();
 
-  // const handleSignOut = async () => {
-  //   await supabase.auth.signOut();
-  // };
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+  };
 
   return (
     <section className="w-full bg-white min-h-screen flex flex-col items-center">
@@ -61,22 +61,22 @@ export default function Home() {
               : "hidden md:flex"
           }`}
         >
-          <Link to={`/profile/${'asd'}`}>@{'asd'}</Link>
+          <Link to={`/profile/${username}`}>@{username}</Link>
           <img
             alt="Profile"
             className="rounded-full"
             height="40"
-            src={'userAvatarUrl'}
+            src={userAvatarUrl}
             style={{
               aspectRatio: "40/40",
               objectFit: "cover",
             }}
             width="40"
           />
-          {/* <Button onClick={handleSignOut}>Logout</Button> */}
+          <Button onClick={handleSignOut}>Logout</Button>
         </div>
       </nav>
       <Outlet />
     </section>
   );
-} 
+}

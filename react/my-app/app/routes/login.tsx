@@ -3,34 +3,34 @@ import { AppLogo } from '~/components/app-logo';
 import { Button } from '~/components/ui/button';
 import { Card, CardContent } from '~/components/ui/card';
 import { Github } from 'lucide-react';
-// import type { SupabaseOutletContext } from '~/lib/supabase';
-// import { getSupabaseWithSessionAndHeaders } from '~/lib/supabase.server';
+import type { SupabaseOutletContext } from '~/lib/supabase';
+import { getSupabaseWithSessionAndHeaders } from '~/lib/supabase.server';
 import type { LoaderFunctionArgs } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node';
 
-// export let loader = async ({ request }: LoaderFunctionArgs) => {
-//   const { headers, serverSession } = await getSupabaseWithSessionAndHeaders({
-//     request,
-//   });
+export let loader = async ({ request }: LoaderFunctionArgs) => {
+  const { headers, serverSession } = await getSupabaseWithSessionAndHeaders({
+    request,
+  });
 
-//   if (serverSession) {
-//     return redirect('/gitposts', { headers });
-//   }
+  if (serverSession) {
+    return redirect('/gitposts', { headers });
+  }
 
-//   return json({ success: true }, { headers });
-// };
+  return json({ success: true }, { headers });
+};
 
 export default function Login() {
-//   const { supabase, domainUrl } = useOutletContext<SupabaseOutletContext>();
+  const { supabase, domainUrl } = useOutletContext<SupabaseOutletContext>();
 
-//   const handleSignIn = async () => {
-//     await supabase.auth.signInWithOAuth({
-//       provider: 'github',
-//       options: {
-//         redirectTo: `${domainUrl}/resources/auth/callback`,
-//       },
-//     });
-//   };
+  const handleSignIn = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: 'github',
+      options: {
+        redirectTo: `${domainUrl}/resources/auth/callback`,
+      },
+    });
+  };
 
   return (
     <section className="w-full bg-white min-h-screen flex flex-col">
@@ -58,7 +58,7 @@ export default function Login() {
         <Card className="relative group overflow-hidden rounded-lg">
           <CardContent className="p-1 bg-gradient-to-r from-orange-700 via-blue-500 to-green-400 bg-300% animate-gradient">
             <Button onClick={handleSignIn}>
-              <Github className="mr-2 h-4 w-4" />
+              {/* <Github className="mr-2 h-4 w-4" /> */}
               Github
             </Button>
           </CardContent>
